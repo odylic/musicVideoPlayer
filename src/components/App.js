@@ -1,5 +1,9 @@
 import React from 'react';
+import Playlist from './Playlist';
 import '../App.scss';
+import {ChakraProvider, Box, Button, GridItem, Grid} from '@chakra-ui/react';
+import {SongsProvider} from './SongContext';
+import Songs from './Songs';
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -22,12 +26,16 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>{!data ? 'Loading...' : data}</p>
-        React
-      </header>
-    </div>
+    // SongsProvider provides the context for SongsContext with createContext
+    <SongsProvider>
+      <div className="App">
+        <header className="App-header">
+          <p>{!data ? 'Loading...' : data}</p>
+          <Playlist />
+          <Songs />
+        </header>
+      </div>
+    </SongsProvider>
   );
 }
 

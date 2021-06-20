@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   background: black;
+  color: white;
 }
 
 .wrapper {
@@ -45,7 +46,6 @@ $login-button-hover-background: rgb(110, 110, 110);
   border: 1px solid white;
   border-radius: 5px;
   background: $login-button-background;
-  grid-area: 7/6/8/8;
   display: grid;
   place-items: center;
 
@@ -63,4 +63,15 @@ $login-button-hover-background: rgb(110, 110, 110);
 
     }
   }
+}
+
+.login-button-spotify {
+  grid-area: 7/6/8/8;
+}
+.login-button-google {
+  grid-area: 10/4/11/6;
+}
+
+.login-button-youtube {
+  grid-area: 10/8/11/10;
 }
