@@ -75,3 +75,23 @@ $login-button-hover-background: rgb(110, 110, 110);
 .login-button-youtube {
   grid-area: 10/8/11/10;
 }
+
+.playlistSongButton {
+  grid-area: 1/1/2/4;
+}
+
+.playlist {
+  grid-area: 2/1/13/4;
+  overflow: scroll;
+}
+
+.songs {
+  grid-area: 2/1/13/4;
+  overflow: scroll;
+}
+
+.react-player {
+  grid-area: 1/4/13/13;
+}
+
+

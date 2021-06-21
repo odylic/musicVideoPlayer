@@ -1,10 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Box, Button, Spacer, GridItem} from '@chakra-ui/react';
-import {SongContext} from './SongContext';
+import {SongContext} from '../Contexts/SongContext';
+import {ViewContext} from '../Contexts/ViewContext';
+import Songs from './Songs';
 
 export default function Playlist() {
   // useState hook, initial is an empty array
   const [playlists, setPlaylist] = useState([]);
+  const [view, setView] = useContext(ViewContext);
   // useContext for songs
   const [songs, setSongs] = useContext(SongContext);
 
@@ -27,7 +30,7 @@ export default function Playlist() {
   });
 
   return (
-    <div>
+    <div className="playlist">
       {playlists.map((playlist) => {
         return (
           <div key={playlist.id}>
@@ -41,6 +44,8 @@ export default function Playlist() {
                 console.log(data);
                 // useState hook to set the song with the data from the fetch hook
                 setSongs(data);
+                view ? setView(false) : setView(true);
+                console.log(view);
               }}
               style={{height: '30px'}}
               className="playlistButton"

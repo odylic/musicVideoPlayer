@@ -1,12 +1,18 @@
-import React from 'react';
-import Playlist from './Playlist';
-import '../App.scss';
-import {ChakraProvider, Box, Button, GridItem, Grid} from '@chakra-ui/react';
-import {SongsProvider} from './SongContext';
-import Songs from './Songs';
+import React, {useState, useContext} from 'react';
 
-function App() {
-  const [data, setData] = React.useState(null);
+import '../App.scss';
+import { ChakraProvider, Box, Button, GridItem, Grid } from '@chakra-ui/react';
+import MainApp from './MainApp'
+import {SongsProvider} from '../Contexts/SongContext';
+import {ViewProvider} from '../Contexts/ViewContext';
+
+
+
+
+export default function App() {
+  
+  // use hook to view playlist or songs
+  const [view, setView] = useState();
 
   // // React.useEffect(() => {
   // //   fetch('/api')
@@ -17,26 +23,15 @@ function App() {
   // //     .then((data) => setData(data.message));
   // // }, []);
 
-  React.useEffect(async () => {
-    const response1 = await fetch('/api');
-    const response2 = await response1.json();
-    const data = await response2;
-    console.log(data.message);
-    setData(data.message);
-  }, []);
+
 
   return (
     // SongsProvider provides the context for SongsContext with createContext
-    <SongsProvider>
-      <div className="App">
-        <header className="App-header">
-          <p>{!data ? 'Loading...' : data}</p>
-          <Playlist />
-          <Songs />
-        </header>
-      </div>
-    </SongsProvider>
+    <ViewProvider>
+      <SongsProvider>
+        <MainApp/>
+      </SongsProvider>
+    </ViewProvider>
   );
 }
 
-export default App;
