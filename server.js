@@ -15,9 +15,11 @@ const session = require('express-session');
 const authRouter = require('./server/routers/authRouter');
 const authController = require('./server/controllers/authController');
 const spotifyRouter = require('./server/routers/spotifyRouter');
+const youtubeRouter = require('./server/routers/youtubeRouter');
 
 // use spotify/auth/
 app.use('/spotify', spotifyRouter);
+app.use('/youtube', youtubeRouter);
 
 app.get('/ping', (req, res) => {
   res.json({message: 'pong'});

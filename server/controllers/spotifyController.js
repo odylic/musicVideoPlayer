@@ -101,7 +101,7 @@ spotifyController.sendPlaylists = async (req, res, next) => {
       limit: 50,
     });
 
-    // has the response with headers and buffer
+    // has the response with headers and buffer, this is the api where you get the playlist data
     const response = await fetch(
       'http://api.spotify.com/v1/me/playlists?limit=50',
       {

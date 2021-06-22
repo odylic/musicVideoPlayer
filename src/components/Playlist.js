@@ -45,7 +45,7 @@ export default function Playlist() {
                 // useState hook to set the song with the data from the fetch hook
                 setSongs(data);
                 view ? setView(false) : setView(true);
-                console.log(view);
+                // console.log(view);
               }}
               style={{height: '30px'}}
               className="playlistButton"
