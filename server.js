@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const cors = require('cors');
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 const PORT = 3000;
@@ -99,6 +100,10 @@ app.get(
   '/auth/youtube/callback',
   passport.authenticate('youtube', {failureRedirect: '/failed'}),
   function (req, res) {
+    // console.log('in server access: ', req.session.accessToken)
+    // console.log('in server refresh: ', req.session.refreshToken)
+    res.cookie('accessTokenYoutube', req.session.accessToken)
+    res.cookie('refreshTokenYoutube', req.session.refreshToken)
     res.redirect('/app');
   }
 );

@@ -32,7 +32,8 @@ passport.use(
       console.log(
         `       req.session.accessToken: ${req.session.accessToken}
         req.session.refreshToken: ${req.session.refreshToken}
-      `);
+      `
+      );
       return cb(null, profile);
     }
   )
@@ -57,8 +58,12 @@ passport.use(
       clientID: process.env.YOUTUBE_CLIENT_ID,
       clientSecret: process.env.YOUTUBE_CLIENT_SECRET,
       callbackURL: process.env.YOUTUBE_CALLBACK_URL,
+      passReqToCallback: true,
     },
-    function (accessToken, refreshToken, profile, cb) {
+    function (req, accessToken, refreshToken, profile, cb) {
+      req.session.accessToken = accessToken;
+      req.session.refreshToken = refreshToken;
+      console.log('tokens in passport:', accessToken, refreshToken);
       return cb(null, profile);
     }
   )

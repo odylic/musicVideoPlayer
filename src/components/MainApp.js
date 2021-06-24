@@ -3,6 +3,8 @@ import Songs from './Songs';
 import Playlist from './Playlist';
 import {ViewContext} from '../Contexts/ViewContext';
 import ReactPlayer from './ReactPlayer';
+import SearchBar from './SearchBar'
+import YoutubePlaylist from './YoutubePlaylist';
 
 export default function MainApp() {
   const [data, setData] = React.useState(null);
@@ -23,15 +25,29 @@ export default function MainApp() {
         onClick={async (e) => {
           e.preventDefault();
           {
-            view ? setView(false) : setView(true);
+            view === 'songs' ? setView('playlist') : setView('songs');
           }
           console.log(view);
         }}
       >
         VIEW PLAYLISTS/SONGS
       </button>
-      {view ? <Songs /> : <Playlist />}
+      {view === 'songs' ? <Songs /> : <Playlist />}
       <ReactPlayer />
+      {/* <SearchBar /> */}
+      <button
+        className="YoutubePlaylistSongButton"
+        onClick={async (e) => {
+          e.preventDefault();
+          {
+            view === 'search' ? setView('playlist') : setView('search');
+          }
+          console.log(view);
+        }}
+      >
+        YOUTUBE PLAYLISTS/ SEARCH
+      </button>
+      {view === 'search' ? <SearchBar /> : <YoutubePlaylist/>}
     </div>
   );
 }

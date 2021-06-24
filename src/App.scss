@@ -81,17 +81,67 @@ $login-button-hover-background: rgb(110, 110, 110);
 }
 
 .playlist {
-  grid-area: 2/1/13/4;
+  grid-area: 2/1/7/4;
   overflow: scroll;
 }
 
+.SearchBar {
+  grid-area: 8/1/13/4;
+  overflow: scroll;
+
+  .SearchForm {
+    width:100%;
+
+    input {
+      width: 75%;
+    }
+
+    button {
+      width: 25%;
+    }
+  }
+
+  .SearchResults {
+    width:100%;
+  }
+}
+
+.YoutubePlaylistSongButton {
+  grid-area: 7/1/8/4;
+}
+
+.YoutubePlaylist {
+  grid-area: 8/1/13/4;
+  overflow: scroll;
+
+}
+
+
+
 .songs {
-  grid-area: 2/1/13/4;
+  grid-area: 2/1/7/4;
   overflow: scroll;
 }
 
 .react-player {
   grid-area: 1/4/13/13;
 }
+
+.reactplayerfiller {
+  grid-area: 1/4/13/13;
+  display: grid;
+  height: 100vh;
+  place-items: center;
+  grid: repeat(12, 1fr)/ 1fr;
+
+  h1 {
+    grid-area: 4/1/5/2;
+  }
+
+  h2 {
+    grid-area: 5/1/6/2;
+  }
+}
+
 
 

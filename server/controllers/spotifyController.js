@@ -98,7 +98,7 @@ spotifyController.sendPlaylists = async (req, res, next) => {
     const {accessToken, refreshToken} = req.cookies;
 
     const queryParams = new URLSearchParams({
-      limit: 50,
+      limit: 1000,
     });
 
     // has the response with headers and buffer, this is the api where you get the playlist data

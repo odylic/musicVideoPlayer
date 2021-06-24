@@ -15,24 +15,32 @@ export default function Songs() {
             onClick={async (e) => {
               e.preventDefault();
               // search parameters for name and artists combined in a string
-              const search = `${song.songName} ${song.artistArr.join(' ')}`;
+              try {
+                const search = `${song.songName} ${song.artistArr[0]}`;
 
-              // await for promised from youtube/:song/:artist route
-              const response = await fetch(
-                `/youtube/${song.songName}/${song.artistArr.join(' ')}`
-              );
-              
-              // json Parse the response
-              const data = await response.json();
-              const urlArray = [];
-              // put the urls into the array
-              data.map((youtubeSearchItem) => {
-                urlArray.push(youtubeSearchItem.url);
-              });
+                // await for promised from youtube/:song/:artist route
+                const response = await fetch(
+                  `/youtube/${song.songName}/${song.artistArr[0]}`
+                );
 
-              // set the video state with the urlsArray
-              setVideo(urlArray);
-              console.log(video);
+                // json Parse the response
+                const data = await response.json();
+                const urlArray = [];
+                // put the urls into the array
+                data.map((youtubeSearchItem) => {
+                  // console.log(youtubeSearchItem);
+                  urlArray.push(youtubeSearchItem.url);
+                });
+
+                const updatedPlaylist = [...video, ...urlArray];
+
+                // set the video state with the urlsArray
+                setVideo(updatedPlaylist);
+                // printing to try to debug why the state doesn't update on the first click but does on second with 2 updates
+                // console.log(await updatedPlaylist)
+              } catch (err) {
+                console.log(err.stack);
+              }
             }}
           >
             {song.songName} -{song.artistArr[0]}{' '}

@@ -19,7 +19,7 @@ export default function Playlist() {
       fetch('/spotify/playlists')
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           // sets playlists state as data
           setPlaylist(data);
         })
@@ -31,7 +31,7 @@ export default function Playlist() {
 
   return (
     <div className="playlist">
-      {playlists.map((playlist) => {
+      {playlists.length !== 0 ? playlists.map((playlist) => {
         return (
           <div key={playlist.id}>
             {/* button click to show songs */}
@@ -39,22 +39,24 @@ export default function Playlist() {
               onClick={async (e) => {
                 e.preventDefault();
                 const response = await fetch(`/spotify/songs/${playlist.id}`);
-                console.log(response);
+                // console.log(response);
                 const data = await response.json();
-                console.log(data);
+                // console.log(data);
                 // useState hook to set the song with the data from the fetch hook
                 setSongs(data);
-                view ? setView(false) : setView(true);
+                // if view is true (showing playlist), set to false (showing songs)
+                view === 'playlist' ? setView('songs') : setView('playlist');
                 // console.log(view);
               }}
               style={{height: '30px'}}
               className="playlistButton"
             >
               {playlist.name}
-            </button>
+            </button> 
           </div>
         );
-      })}
+      }) : "Sign into Spotify"
+       }
     </div>
   );
 }
