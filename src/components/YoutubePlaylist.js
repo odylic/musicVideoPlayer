@@ -7,7 +7,7 @@ export default function YoutubePlaylist() {
   // useState hook, initial is an empty array
   const [playlists, setPlaylist] = useState([]);
   const [view, setView] = useContext(ViewContext);
-  // useContext for songs
+  // useContex t  for songs
   const [songs, setSongs] = useContext(SongContext);
   const [video, setVideo] = useContext(VideoContext);
 
@@ -35,14 +35,13 @@ export default function YoutubePlaylist() {
         ? playlists.map((playlist) => {
             return (
               <div>
-                {/* button click to show songs */}
+                {/* button click to load playlist songs to player*/}
                 <button
                   onClick={async (e) => {
                     e.preventDefault();
                     const response = await fetch(
                       `/youtube/songs/${playlist.id}`
                     );
-                    // console.log(playlist)
                     // console.log(response);
                     const data = await response.json();
                     // console.log(data);
@@ -51,13 +50,9 @@ export default function YoutubePlaylist() {
                       urlArr.push(item.url);
                     });
                     console.log(urlArr);
-                    // // useState hook to set the song with the data from the fetch hook
+                    // useState hook to set the song with the data from the fetch hook
                     setVideo(urlArr);
-                    // // if view is true (showing playlist), set to false (showing songs)
-                    // view === 'playlist'
-                    //   ? setView('songs')
-                    //   : setView('playlist');
-                    // console.log(view);
+          
                   }}
                   style={{height: '30px'}}
                   className="playlistButton"

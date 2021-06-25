@@ -116,7 +116,11 @@ $login-button-hover-background: rgb(110, 110, 110);
 
 }
 
-
+.light {
+  position: relative;
+  bottom: 30px;
+  right: 45px;
+}
 
 .songs {
   grid-area: 2/1/7/4;
