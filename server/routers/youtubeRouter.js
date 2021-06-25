@@ -19,6 +19,11 @@ router.get('/search', youtubeController.search, (req, res) => {
   res.status(200).json(res.locals.searchResult);
 });
 
+router.get('/searchPlaylist', youtubeController.searchPlaylist, (req, res) => {
+  // console.log('in router', res.locals.searchResult);
+  res.status(200).json(res.locals.searchResult);
+});
+
 router.get('/playlist', youtubeController.getPlaylist, (req, res) => {
   res.status(200).json(res.locals.playlistResults);
 });

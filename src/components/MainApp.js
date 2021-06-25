@@ -1,14 +1,16 @@
-import React, {useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import Songs from './Songs';
 import Playlist from './Playlist';
 import {ViewContext} from '../Contexts/ViewContext';
 import ReactPlayer from './ReactPlayer';
-import SearchBar from './SearchBar'
+import SearchBar from './SearchBar';
 import YoutubePlaylist from './YoutubePlaylist';
+import {VideoProvider} from '../Contexts/VideoContext';
 
 export default function MainApp() {
   const [data, setData] = React.useState(null);
   const [view, setView] = useContext(ViewContext);
+  const [youtubeView, setYoutubeView] = useState('playlist');
 
   React.useEffect(async () => {
     const response1 = await fetch('/api');
@@ -20,6 +22,7 @@ export default function MainApp() {
 
   return (
     <div className="grid">
+
       <button
         className="playlistSongButton"
         onClick={async (e) => {
@@ -33,21 +36,27 @@ export default function MainApp() {
         VIEW PLAYLISTS/SONGS
       </button>
       {view === 'songs' ? <Songs /> : <Playlist />}
-      <ReactPlayer />
-      {/* <SearchBar /> */}
+
+
+        <ReactPlayer />
+
+
+
       <button
         className="YoutubePlaylistSongButton"
         onClick={async (e) => {
           e.preventDefault();
           {
-            view === 'search' ? setView('playlist') : setView('search');
+            youtubeView === 'search'
+              ? setYoutubeView('playlist')
+              : setYoutubeView('search');
           }
-          console.log(view);
+          console.log(youtubeView);
         }}
       >
         YOUTUBE PLAYLISTS/ SEARCH
       </button>
-      {view === 'search' ? <SearchBar /> : <YoutubePlaylist/>}
+      {youtubeView === 'search' ? <SearchBar /> : <YoutubePlaylist />}
     </div>
   );
 }

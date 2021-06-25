@@ -96,7 +96,7 @@ export const VideoProvider = (props) => {
     'https://www.youtube.com/watch?v=KRaWnd3LJfs',
     'https://www.youtube.com/watch?v=4G6QDNC4jPs',
   ];
-  const [video, setVideo] = useState([]);
+  const [video, setVideo] = useState(url);
   return (
     <VideoContext.Provider value={[video, setVideo]}>
       {props.children}

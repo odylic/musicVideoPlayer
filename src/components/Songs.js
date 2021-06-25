@@ -18,26 +18,34 @@ export default function Songs() {
               try {
                 const search = `${song.songName} ${song.artistArr[0]}`;
 
-                // await for promised from youtube/:song/:artist route
+                // await for youtube playlist search
                 const response = await fetch(
-                  `/youtube/${song.songName}/${song.artistArr[0]}`
+                  `/youtube/searchPlaylist?searchInput=${search}`
                 );
 
-                // json Parse the response
+                // // json Parse the response
                 const data = await response.json();
-                const urlArray = [];
+                const playlistIdArr = [];
                 // put the urls into the array
                 data.map((youtubeSearchItem) => {
                   // console.log(youtubeSearchItem);
-                  urlArray.push(youtubeSearchItem.url);
+                  playlistIdArr.push(youtubeSearchItem.playlistId);
                 });
 
-                const updatedPlaylist = [...video, ...urlArray];
-
-                // set the video state with the urlsArray
-                setVideo(updatedPlaylist);
-                // printing to try to debug why the state doesn't update on the first click but does on second with 2 updates
-                // console.log(await updatedPlaylist)
+                const response1 = await fetch(
+                  `/youtube/songs/${playlistIdArr[0]}`
+                );
+                // console.log(response1);
+                const data1 = await response1.json();
+                // console.log(data1);
+                const urlArr = [];
+                data1.map((item) => {
+                  urlArr.push(item.url);
+                });
+                // console.log(urlArr);
+                // // useState hook to set the song with the data from the fetch hook
+                setVideo(urlArr);
+                
               } catch (err) {
                 console.log(err.stack);
               }

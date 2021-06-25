@@ -194,16 +194,46 @@ youtubeController.getSongs = async (req, res, next) => {
   }
 };
 
-// google
-//   .youtube('v3')
-//   .playlistItems.list(playlistParams)
-//   .then((response) => {
-//     const {data} = response;
-//     data.items.forEach((item) => {
-//       console.log(
-//         `"https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}",`
-//       );
-//     });
-//   });
+youtubeController.searchPlaylist = async (req, res, next) => {
+  try {
+    const {searchInput} = req.query;
+    const query = searchInput;
+
+    const searchParams = {
+      // API KEY
+      key: process.env.YOUTUBE_TOKEN,
+      part: 'snippet',
+      type: 'playlist',
+      // search
+      q: query,
+      maxResults: 25,
+    };
+
+    // await the promise
+    const response = await google.youtube('v3').search.list(searchParams);
+    const {data} = response;
+    const { items } = data;
+    console.log(items)
+
+    // place the urls into this array
+    const urlArray = [];
+
+    items.map((item) => {
+      // console.log(item)
+      const url = {
+        title: item.snippet.title,
+        playlistId: item.id.playlistId,
+        thumbnail: item.snippet.thumbnails,
+      };
+      urlArray.push(url);
+    });
+
+    // store in local memory
+    res.locals.searchResult = urlArray;
+    return next();
+  } catch (err) {
+    console.log(err.stack);
+  }
+};
 
 module.exports = youtubeController;
