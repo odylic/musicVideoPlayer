@@ -12,17 +12,9 @@ export default function MainApp() {
   const [view, setView] = useContext(ViewContext);
   const [youtubeView, setYoutubeView] = useState('playlist');
 
-  React.useEffect(async () => {
-    const response1 = await fetch('/api');
-    const response2 = await response1.json();
-    const data = await response2;
-    console.log(data.message);
-    setData(data.message);
-  }, []);
 
   return (
     <div className="grid">
-
       <button
         className="playlistSongButton"
         onClick={async (e) => {
@@ -37,10 +29,7 @@ export default function MainApp() {
       </button>
       {view === 'songs' ? <Songs /> : <Playlist />}
 
-
-        <ReactPlayer />
-
-
+      <ReactPlayer />
 
       <button
         className="YoutubePlaylistSongButton"
