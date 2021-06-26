@@ -2,7 +2,6 @@ const express = require('express');
 const youtubeController = require('../controllers/youtubecontroller');
 const router = express.Router();
 
-
 // gets the songs from the youtube playlist
 router.get('/songs/:id', youtubeController.getSongs, (req, res) => {
   res.status(200).json(res.locals.songs);
@@ -28,6 +27,8 @@ router.get('/playlist', youtubeController.getPlaylist, (req, res) => {
   res.status(200).json(res.locals.playlistResults);
 });
 
-
+// router.post('/postTokens', sqlController.saveTokens, (req, res) => {
+//   res.status(200).json(res.locals.response);
+// });
 
 module.exports = router;

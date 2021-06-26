@@ -2,6 +2,9 @@ require('dotenv').config();
 const {google} = require('googleapis');
 const OAuth2 = google.auth.OAuth2;
 const {search} = require('../routers/authRouter');
+const session = require('express-session');
+const tokens = require('../../passport');
+
 const youtubeController = {};
 
 const config = {
@@ -96,17 +99,18 @@ youtubeController.search = async (req, res, next) => {
 
 youtubeController.getPlaylist = async (req, res, next) => {
   try {
-    const {accessTokenYoutube, refreshTokenYoutube} = req.cookies;
+    // const {accessTokenYoutube, refreshTokenYoutube} = req.cookies;
 
     const oauth2Client = new OAuth2(
       config.clientID,
       config.clientSecret,
       config.callbackURL
     );
+    // console.log('tokens: ', tokens)
 
     oauth2Client.credentials = {
-      access_token: accessTokenYoutube,
-      refresh_token: refreshTokenYoutube,
+      access_token: tokens.accessTokenYoutube,
+      refresh_token: tokens.refreshTokenYoutube,
     };
 
     const playlistParams = {
@@ -144,9 +148,10 @@ youtubeController.getPlaylist = async (req, res, next) => {
 
 youtubeController.getSongs = async (req, res, next) => {
   try {
-    const {accessTokenYoutube, refreshTokenYoutube} = req.cookies;
+    // const {accessTokenYoutube, refreshTokenYoutube} = req.cookies;
     const {id} = req.params;
     // console.log(id);
+    console.log('tokens: ', tokens);
 
     const oauth2Client = new OAuth2(
       config.clientID,
@@ -155,8 +160,8 @@ youtubeController.getSongs = async (req, res, next) => {
     );
 
     oauth2Client.credentials = {
-      access_token: accessTokenYoutube,
-      refresh_token: refreshTokenYoutube,
+      access_token: tokens.accessTokenYoutube,
+      refresh_token: tokens.refreshTokenYoutube,
     };
 
     const playlistParams = {
@@ -212,8 +217,8 @@ youtubeController.searchPlaylist = async (req, res, next) => {
     // await the promise
     const response = await google.youtube('v3').search.list(searchParams);
     const {data} = response;
-    const { items } = data;
-    console.log(items)
+    const {items} = data;
+    console.log(items);
 
     // place the urls into this array
     const urlArray = [];

@@ -100,10 +100,8 @@ app.get(
   '/auth/youtube/callback',
   passport.authenticate('youtube', {failureRedirect: '/failed'}),
   function (req, res) {
-    // console.log('in server access: ', req.session.accessToken)
-    // console.log('in server refresh: ', req.session.refreshToken)
-    res.cookie('accessTokenYoutube', req.session.accessToken)
-    res.cookie('refreshTokenYoutube', req.session.refreshToken)
+    // res.cookie('accessTokenYoutube', req.session.accessToken);
+    // res.cookie('refreshTokenYoutube', req.session.refreshToken);
     res.redirect('/app');
   }
 );
